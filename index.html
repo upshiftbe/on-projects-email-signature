@@ -21,48 +21,62 @@
         <div class="form-grid">
             <div class="form-field">
                 <label for="input-naam">Name</label>
-                <input type="text" id="input-naam" onkeyup="updateFooter()" onchange="updateFooter()" />
+                <input type="text" id="input-naam" onkeyup="handleFormChange()" onchange="handleFormChange()" />
             </div>
             <div class="form-field">
                 <label for="input-functie">Role</label>
-                <input type="text" id="input-functie" onkeyup="updateFooter()" onchange="updateFooter()" />
+                <input type="text" id="input-functie" onkeyup="handleFormChange()" onchange="handleFormChange()" />
             </div>
             <div class="form-field">
                 <label for="input-gsm">Phone</label>
-                <input type="text" id="input-gsm" onkeyup="updateFooter()" onchange="updateFooter()" />
+                <input type="text" id="input-gsm" onkeyup="handleFormChange()" onchange="handleFormChange()" />
             </div>
             <div class="form-field">
                 <label for="input-email">Email</label>
-                <input type="text" id="input-email" onkeyup="updateFooter()" onchange="updateFooter()" />
+                <input type="text" id="input-email" onkeyup="handleFormChange()" onchange="handleFormChange()" />
             </div>
             <div class="form-field">
                 <label for="input-locatie-1">Location 1</label>
-                <input type="text" id="input-locatie-1" onkeyup="updateFooter()" onchange="updateFooter()" />
+                <input type="text" id="input-locatie-1" onkeyup="handleFormChange()" onchange="handleFormChange()" />
             </div>
             <div class="form-field">
                 <label for="input-locatie-2">Location 2</label>
-                <input type="text" id="input-locatie-2" onkeyup="updateFooter()" onchange="updateFooter()" />
+                <input type="text" id="input-locatie-2" onkeyup="handleFormChange()" onchange="handleFormChange()" />
             </div>
             <div class="form-field">
                 <label for="input-facebook">Facebook URL</label>
-                <input type="url" id="input-facebook" onkeyup="updateFooter()" onchange="updateFooter()" />
+                <input type="url" id="input-facebook" onkeyup="handleFormChange()" onchange="handleFormChange()" />
             </div>
             <div class="form-field">
                 <label for="input-linkedin">LinkedIn URL</label>
-                <input type="url" id="input-linkedin" onkeyup="updateFooter()" onchange="updateFooter()" />
+                <input type="url" id="input-linkedin" onkeyup="handleFormChange()" onchange="handleFormChange()" />
             </div>
             <div class="form-field">
                 <label for="input-instagram">Instagram URL</label>
-                <input type="url" id="input-instagram" onkeyup="updateFooter()" onchange="updateFooter()" />
+                <input type="url" id="input-instagram" onkeyup="handleFormChange()" onchange="handleFormChange()" />
             </div>
             <div class="form-field">
                 <label for="input-website">Website URL</label>
-                <input type="url" id="input-website" onkeyup="updateFooter()" onchange="updateFooter()" />
+                <input type="url" id="input-website" onkeyup="handleFormChange()" onchange="handleFormChange()" />
             </div>
         </div>
     </div>
 
     <script>
+        const FORM_FIELD_IDS = [
+            "input-naam",
+            "input-functie",
+            "input-gsm",
+            "input-email",
+            "input-locatie-1",
+            "input-locatie-2",
+            "input-facebook",
+            "input-linkedin",
+            "input-instagram",
+            "input-website",
+        ];
+        const STATE_STORAGE_KEY = "signatureBuilderState";
+
         function updateFooter() {
             var naam = document.getElementById("input-naam").value;
             document.getElementById("footer-naam").innerHTML = naam;
@@ -156,12 +170,81 @@
                 instagramLink.href = "";
             }
         }
+
+        function loadStoredState() {
+            try {
+                const stored = localStorage.getItem(STATE_STORAGE_KEY);
+                return stored ? JSON.parse(stored) : {};
+            }
+            catch (error) {
+                console.warn("Unable to read localStorage", error);
+                return {};
+            }
+        }
+
+        function saveStoredState(state) {
+            try {
+                localStorage.setItem(STATE_STORAGE_KEY, JSON.stringify(state));
+            }
+            catch (error) {
+                console.warn("Unable to persist localStorage", error);
+            }
+        }
+
+        function restoreFormState() {
+            const params = new URLSearchParams(window.location.search);
+            const stored = loadStoredState();
+            FORM_FIELD_IDS.forEach((fieldId) => {
+                const field = document.getElementById(fieldId);
+                if (!field) {
+                    return;
+                }
+                const paramValue = params.get(fieldId);
+                if (paramValue !== null) {
+                    field.value = paramValue;
+                    return;
+                }
+                if (stored[fieldId]) {
+                    field.value = stored[fieldId];
+                }
+            });
+        }
+
+        function syncFormState() {
+            const params = new URLSearchParams(window.location.search);
+            const state = {};
+            FORM_FIELD_IDS.forEach((fieldId) => {
+                const field = document.getElementById(fieldId);
+                if (!field) {
+                    return;
+                }
+                const value = field.value || "";
+                state[fieldId] = value;
+                const trimmed = value.trim();
+                if (trimmed.length > 0) {
+                    params.set(fieldId, trimmed);
+                }
+                else {
+                    params.delete(fieldId);
+                }
+            });
+            const query = params.toString();
+            const newUrl = window.location.pathname + (query ? `?${query}` : "");
+            history.replaceState(null, "", newUrl);
+            saveStoredState(state);
+        }
+
+        function handleFormChange() {
+            updateFooter();
+            syncFormState();
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.556.0/dist/umd/lucide.min.js" defer></script>
     <script>
         window.addEventListener("load", function () {
-            updateFooter();
+            restoreFormState();
+            handleFormChange();
             if (typeof lucide !== "undefined") {
                 lucide.createIcons();
             }
