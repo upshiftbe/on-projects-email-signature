@@ -7,30 +7,51 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.556.0/dist/umd/lucide.min.js" defer></script>
 </head>
 
 <body>
 
-    <div style="margin-bottom: 200px">
+    <div class="form-wrapper">
         <h1>Upshift - Email signature builder</h1>
-
-        <h2>Name</h2>
-        <input type="text" id="input-naam" onkeyup="updateFooter()" onchange="updateFooter()" />
-
-        <h2>Role</h2>
-        <input type="text" id="input-functie" onkeyup="updateFooter()" onchange="updateFooter()" />
-
-        <h2>Phone</h2>
-        <input type="text" id="input-gsm" onkeyup="updateFooter()" onchange="updateFooter()" />
-
-        <h2>Email</h2>
-        <input type="text" id="input-email" onkeyup="updateFooter()" onchange="updateFooter()" />
-
-        <h2>Location 1</h2>
-        <input type="text" id="input-locatie-1" onkeyup="updateFooter()" onchange="updateFooter()" />
-
-        <h2>Location 2</h2>
-        <input type="text" id="input-locatie-2" onkeyup="updateFooter()" onchange="updateFooter()" />
+        <div class="form-grid">
+            <div class="form-field">
+                <label for="input-naam">Name</label>
+                <input type="text" id="input-naam" onkeyup="updateFooter()" onchange="updateFooter()" />
+            </div>
+            <div class="form-field">
+                <label for="input-functie">Role</label>
+                <input type="text" id="input-functie" onkeyup="updateFooter()" onchange="updateFooter()" />
+            </div>
+            <div class="form-field">
+                <label for="input-gsm">Phone</label>
+                <input type="text" id="input-gsm" onkeyup="updateFooter()" onchange="updateFooter()" />
+            </div>
+            <div class="form-field">
+                <label for="input-email">Email</label>
+                <input type="text" id="input-email" onkeyup="updateFooter()" onchange="updateFooter()" />
+            </div>
+            <div class="form-field">
+                <label for="input-locatie-1">Location 1</label>
+                <input type="text" id="input-locatie-1" onkeyup="updateFooter()" onchange="updateFooter()" />
+            </div>
+            <div class="form-field">
+                <label for="input-locatie-2">Location 2</label>
+                <input type="text" id="input-locatie-2" onkeyup="updateFooter()" onchange="updateFooter()" />
+            </div>
+            <div class="form-field">
+                <label for="input-facebook">Facebook URL</label>
+                <input type="url" id="input-facebook" onkeyup="updateFooter()" onchange="updateFooter()" />
+            </div>
+            <div class="form-field">
+                <label for="input-linkedin">LinkedIn URL</label>
+                <input type="url" id="input-linkedin" onkeyup="updateFooter()" onchange="updateFooter()" />
+            </div>
+            <div class="form-field">
+                <label for="input-instagram">Instagram URL</label>
+                <input type="url" id="input-instagram" onkeyup="updateFooter()" onchange="updateFooter()" />
+            </div>
+        </div>
     </div>
 
     <script>
@@ -65,10 +86,52 @@
                 document.getElementById("footer-locatie-2-container").style.display =
                     "none";
             }
+
+            var facebookUrl = document.getElementById("input-facebook").value.trim();
+            var facebookCell = document.getElementById("social-facebook-cell");
+            var facebookLink = document.getElementById("link-facebook");
+            if (facebookUrl.length > 0) {
+                facebookLink.href = facebookUrl;
+                facebookCell.style.display = "table-cell";
+            }
+            else {
+                facebookCell.style.display = "none";
+            }
+
+            var linkedinUrl = document.getElementById("input-linkedin").value.trim();
+            var linkedinCell = document.getElementById("social-linkedin-cell");
+            var linkedinLink = document.getElementById("link-linkedin");
+            if (linkedinUrl.length > 0) {
+                linkedinLink.href = linkedinUrl;
+                linkedinCell.style.display = "table-cell";
+            }
+            else {
+                linkedinCell.style.display = "none";
+            }
+
+            var instagramUrl = document.getElementById("input-instagram").value.trim();
+            var instagramCell = document.getElementById("social-instagram-cell");
+            var instagramLink = document.getElementById("link-instagram");
+            if (instagramUrl.length > 0) {
+                instagramLink.href = instagramUrl;
+                instagramCell.style.display = "table-cell";
+            }
+            else {
+                instagramCell.style.display = "none";
+            }
         }
     </script>
 
-    <table cellpadding="0" cellspacing="0" style="
+    <script>
+        window.addEventListener("load", function () {
+            updateFooter();
+            if (typeof lucide !== "undefined") {
+                lucide.createIcons();
+            }
+        });
+    </script>
+
+    <table class="signature-preview" cellpadding="0" cellspacing="0" style="
           vertical-align: -webkit-baseline-middle;
           font-size: medium;
           font-family: Segoe UI;
@@ -104,7 +167,7 @@
                                 <td width="15">
                                     <div style="width: 15px"></div>
                                 </td>
-                                <td color="#F2547D" direction="vertical" width="1" style="
+                                <td color="#283e89" direction="vertical" width="1" style="
                         width: 1px;
                         border-bottom: none;
                         border-left: 1px solid #283e89;
@@ -129,12 +192,11 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td style="vertical-align: bottom">
-                                                                    <span color="#F2547D" width="18"
+                                                                    <span color="#283e89" width="18"
                                                                         class="sc-jlyJG bbyJzT"
-                                                                        style="display: block"><img
-                                                                            src="https://raw.githubusercontent.com/upshiftbe/triton-travel-email-signature/main/phone.png"
-                                                                            color="#F2547D" width="18"
-                                                                            style="display: block" /></span>
+                                                                        style="display: block; color: #283e89">
+                                                                        <i data-lucide="phone-call" class="contact-icon" aria-hidden="true"></i>
+                                                                    </span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -159,12 +221,11 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td style="vertical-align: bottom">
-                                                                    <span color="#F2547D" width="18"
+                                                                    <span color="#283e89" width="18"
                                                                         class="sc-jlyJG bbyJzT"
-                                                                        style="display: block"><img
-                                                                            src="https://raw.githubusercontent.com/upshiftbe/triton-travel-email-signature/main/email.png"
-                                                                            color="#F2547D" width="18"
-                                                                            style="display: block" /></span>
+                                                                        style="display: block; color: #283e89">
+                                                                        <i data-lucide="mail" class="contact-icon" aria-hidden="true"></i>
+                                                                    </span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -189,12 +250,11 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td style="vertical-align: bottom">
-                                                                    <span color="#F2547D" width="18"
+                                                                    <span color="#283e89" width="18"
                                                                         class="sc-jlyJG bbyJzT"
-                                                                        style="display: block"><img
-                                                                            src="https://raw.githubusercontent.com/upshiftbe/triton-travel-email-signature/main/globe.png"
-                                                                            color="#F2547D" width="18"
-                                                                            style="display: block" /></span>
+                                                                        style="display: block; color: #283e89">
+                                                                        <i data-lucide="globe" class="contact-icon" aria-hidden="true"></i>
+                                                                    </span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -219,12 +279,11 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td style="vertical-align: bottom">
-                                                                    <span color="#F2547D" width="18"
+                                                                    <span color="#283e89" width="18"
                                                                         class="sc-jlyJG bbyJzT"
-                                                                        style="display: block"><img
-                                                                            src="https://raw.githubusercontent.com/upshiftbe/triton-travel-email-signature/main/company.png"
-                                                                            color="#F2547D" width="18"
-                                                                            style="display: block" /></span>
+                                                                        style="display: block; color: #283e89">
+                                                                        <i data-lucide="building" class="contact-icon" aria-hidden="true"></i>
+                                                                    </span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -281,42 +340,43 @@
                             <tr>
                                 <td>
                                     <a href="https://www.tritontravel.be" target="_blank">
-                                        <img src="https://raw.githubusercontent.com/upshiftbe/triton-travel-email-signature/main/logo.png"
-                                            width="150px" />
+                                        <img src="https://raw.githubusercontent.com/upshiftbe/on-projects-email-signature/main/logo.png"
+                                            width="100px" />
                                     </a>
                                 </td>
-                                <td style="text-align: right; vertical-align: top">
+                                  <td style="text-align: right; vertical-align: bottom; padding-bottom: 2px">
                                     <table cellpadding="0" cellspacing="0" style="
                           vertical-align: -webkit-baseline-middle;
                           font-size: medium;
                           font-family: Segoe UI;
-                          display: inline-block;
-                          margin-top: 10px;
+                              display: inline-block;
+                              margin-top: 0;
                         ">
                                         <tbody>
-                                            <tr style="text-align: right">
-                                                <td>
-                                                    <a href="https://www.facebook.com/tritontravel.be"
-                                                        style="display: inline-block; padding: 0px"><img
-                                                            src="https://raw.githubusercontent.com/upshiftbe/triton-travel-email-signature/main/facebook-circular.png"
-                                                            alt="facebook" height="22" width="22" /></a>
+                                            <tr style="text-align: right; vertical-align: bottom">
+                                                <td id="social-facebook-cell">
+                                                    <a id="link-facebook" href="https://www.facebook.com/tritontravel.be"
+                                                        style="display: inline-block; padding: 0px; color: #181127">
+                                                        <i data-lucide="facebook" class="social-icon" aria-hidden="true"></i>
+                                                    </a>
                                                 </td>
                                                 <td width="5">
                                                     <div></div>
                                                 </td>
-                                                <td>
-                                                    <a href="https://www.linkedin.com/company/tritontravel"><img
-                                                            src="https://raw.githubusercontent.com/upshiftbe/triton-travel-email-signature/main/linkedin-circular.png"
-                                                            alt="linkedin" height="22" width="22" /></a>
+                                                <td id="social-linkedin-cell">
+                                                    <a id="link-linkedin" href="https://www.linkedin.com/company/tritontravel"
+                                                        style="display: inline-block; padding: 0px; color: #181127">
+                                                        <i data-lucide="linkedin" class="social-icon" aria-hidden="true"></i>
+                                                    </a>
                                                 </td>
                                                 <td width="5">
                                                     <div></div>
                                                 </td>
-                                                <td>
-                                                    <a href="https://www.instagram.com/triton_travel_mechelen/"
-                                                        color="#6A78D1" style="display: inline-block"><img
-                                                            src="https://raw.githubusercontent.com/upshiftbe/triton-travel-email-signature/main/instagram-circular.png"
-                                                            alt="instagram" height="22" width="22" /></a>
+                                                <td id="social-instagram-cell">
+                                                    <a id="link-instagram" href="https://www.instagram.com/triton_travel_mechelen/"
+                                                        style="display: inline-block; padding: 0px; color: #181127">
+                                                        <i data-lucide="instagram" class="social-icon" aria-hidden="true"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -340,7 +400,7 @@
                                 <td height="5"></td>
                             </tr>
                             <tr>
-                                <td color="#F2547D" direction="horizontal" height="1" style="
+                                <td color="#283e89" direction="horizontal" height="1" style="
                         width: 100%;
                         border-bottom: 1px solid #283e89;
                         border-left: none;

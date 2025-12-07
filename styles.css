@@ -7,3 +7,79 @@ h1 {
 h2 {
   font-weight: 300;
 }
+
+.form-wrapper {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 0 200px;
+}
+
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.form-field {
+  flex: 1 1 260px;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e1e1e;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.form-field input:focus {
+  outline: none;
+  border-color: #283e89;
+}
+
+.signature-preview {
+  margin-top: 40px;
+}
+
+.contact-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+.contact-icon path,
+.contact-icon line,
+.contact-icon rect,
+.contact-icon circle,
+.contact-icon polyline {
+  stroke: currentColor;
+  stroke-width: 1.5px;
+  fill: none;
+}
+
+.social-icon {
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+}
+
+.social-icon path,
+.social-icon line,
+.social-icon rect,
+.social-icon circle,
+.social-icon polyline {
+  stroke: currentColor;
+  stroke-width: 1.5px;
+  fill: none;
+}
