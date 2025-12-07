@@ -53,6 +53,27 @@ h2 {
   margin-top: 40px;
 }
 
+.signature-actions {
+  margin: 24px 0 0;
+}
+
+#copy-signature {
+  appearance: none;
+  border: 1px solid #283e89;
+  background: white;
+  color: #283e89;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+#copy-signature:focus-visible {
+  outline: 2px solid #283e89;
+  outline-offset: 2px;
+}
+
 .contact-icon {
   width: 18px;
   height: 18px;
